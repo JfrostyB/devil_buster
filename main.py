@@ -1,5 +1,3 @@
-import rooms
-
 def Instruction():
    print('''
    Simple Text RPG
