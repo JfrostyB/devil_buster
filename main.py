@@ -5,4 +5,4 @@ def Instruction():
    Commands:
    go [cardinal directions, up, down]
    get [item]
-   ''') 
+   ''')

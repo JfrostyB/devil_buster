@@ -1,80 +1,94 @@
+import os
 from inventory import inventory
 from main import Instruction
+
+def status():
+    print("----------")
+    print(f"Current Room: {currentRoom}")
+    print(f"Inventory: {inventory}")
+
+    if "item" in rooms[currentRoom] and rooms[currentRoom]["item"]:
+        room_item = rooms[currentRoom]["item"]
+        print(f"You see a {room_item}")
+    else:
+        print(f"You don't see anything")
+    print("----------")
+
 currentRoom = "Entrance"
 
 Instruction()
 
 rooms = {
     "Entrance"  : {
-        "north": "Hall 1",
+        "north": "Lobby",
         "item" : "steel pipe"
     },
-    "Hall 1": {
-        "north": "Entrance",
-        "west" : "Room 1",
-        "east" : "Room 2",
-        "north" : "Hall 2"
+    "Lobby": {
+        "south": "Entrance",
+        "west" : "Vestibule",
+        "east" : "Downstairs Bathroom",
+        "north" : "Living Room"
     },
-    "Hall 2": {
-        "north" : "Hall 1",
-        "east" : "Room 3",
-        "west" : "kitchen",
+    "Living Room": {
+        "south" : "Lobby",
+        "east" : "Walkin Closet",
+        "west" : "Kitchen",
         "north" : "Staircase F1",
     },
-    "Room 1" : {
-        "east" : "Hall 1",
+    "Vestibule" : {
+        "east" : "Lobby",
         "west" : "Garage",
     },
     "Garage" : {
-        "east" : "Room 1",
+        "east" : "Vestibule",
     },
-    "Room 2" : {
-        "west" : "Hall 1",
+    "Downstairs Bathroom" : {
+        "west" : "Lobby",
     },
-    "Room 3" : {
-        "east" : "Hall 2",
+    "Walkin Closet" : {
+        "west" : "Living Room",
     },
     "Kitchen" : {
-        "west" : "Hall 2",
-        "south" : "Backyard",
+        "east" : "Living Room",
+        "north" : "Backyard",
     },
     "Backyard" : {
-        "north" : "Kitchen",
+        "south" : "Kitchen",
     },
     "Staircase F1" : {
-        "north" : "Hall 2",
+        "north" : "Living Room",
         "up" : "Staircase F2",
     },
     "Staircase F2" : {
-        "south" : "Hall 4",
+        "south" : "Landing",
         "down" : "Staircase F1",
     },
-    "Hall 4" : {
-        "north" : "Staircase 2",
-        "east" : "Room 5",
-        "west" : "Room 4",
-        "south" : "Hall 5",
+    "Landing" : {
+        "north" : "Staircase F2",
+        "east" : "Storage",
+        "west" : "Guest Bedroom",
+        "south" : "Hallway",
     },
-    "Hall 5" : {
-        "north" : "Hall 4",
-        "east" : "Room 6",
-        "west" : "Room 7",
+    "Hallway" : {
+        "north" : "Landing",
+        "east" : "Upstairs Bathoom",
+        "west" : "Master Bedroom",
     },
-    "Room 4" : {
-        "east" : "Hall 4",
+    "Guest Bedroom" : {
+        "east" : "Landing",
     },
-    "Room 5" : {
-        "west" : "Hall 4",
+    "Storage" : {
+        "west" : "Landing",
     },
-    "Room 6" : {
-        "west" : "Hall 5",
+    "Upstairs Bathoom" : {
+        "west" : "Hallway",
     },
-    "Room 7" : {
-        "east" : "Hall 5",
+    "Master Bedroom" : {
+        "east" : "Hallway",
         "up" : "Attic",
     },
     "Attic" : {
-        "down" : "Room 7"
+        "down" : "Master Bedroom"
     }
 }   
 
@@ -83,8 +97,12 @@ print("I am in the", currentRoom)
 
 while True:
 
+    status()
+
     move = input(">")
     move = move.split(" ", 1)
+
+    os.system("clear")
 
     if move[0] == "go":
         if move[1] in rooms[currentRoom]:
@@ -102,3 +120,5 @@ while True:
             print(inventory)
         else:
             print(f"You don't see a {move[1]}")
+    
+    
