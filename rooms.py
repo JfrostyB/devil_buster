@@ -1,6 +1,6 @@
 import os
 from inventory import inventory
-from main import Instruction
+from instruction import Instruction
 
 def status():
     print("----------")
