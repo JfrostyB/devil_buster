@@ -19,14 +19,17 @@ currentRoom = "Entrance"
 Instruction()
 
 rooms = {
+    "Outside" : {
+        "north": "Entrance"
+    },
     "Entrance"  : {
         "north": "Lobby",
-        "item" : "steel pipe"
+        "south": "Outside"
     },
     "Lobby": {
         "south": "Entrance",
-        "west" : "Vestibule",
-        "east" : "Downstairs Bathroom",
+        "east" : "Vestibule",
+        "west" : "Downstairs Bathroom",
         "north" : "Living Room"
     },
     "Living Room": {
@@ -34,29 +37,34 @@ rooms = {
         "east" : "Walkin Closet",
         "west" : "Kitchen",
         "north" : "Staircase F1",
+        "item" : "robe"
     },
     "Vestibule" : {
-        "east" : "Lobby",
-        "west" : "Garage",
+        "west" : "Lobby",
+        "east" : "Garage",
     },
     "Garage" : {
-        "east" : "Vestibule",
+        "west" : "Vestibule",
+        "item" : "steel pipe"
     },
     "Downstairs Bathroom" : {
-        "west" : "Lobby",
+        "east" : "Lobby",
+        "item" : "areosol can"
     },
     "Walkin Closet" : {
         "west" : "Living Room",
+        "item" : "lighter"
     },
     "Kitchen" : {
         "east" : "Living Room",
         "north" : "Backyard",
+        "item" : "knife"
     },
     "Backyard" : {
         "south" : "Kitchen",
     },
     "Staircase F1" : {
-        "north" : "Living Room",
+        "south" : "Living Room",
         "up" : "Staircase F2",
     },
     "Staircase F2" : {
@@ -65,30 +73,33 @@ rooms = {
     },
     "Landing" : {
         "north" : "Staircase F2",
-        "east" : "Storage",
-        "west" : "Guest Bedroom",
+        "west" : "Storage",
+        "east" : "Guest Bedroom",
         "south" : "Hallway",
     },
     "Hallway" : {
         "north" : "Landing",
-        "east" : "Upstairs Bathoom",
-        "west" : "Master Bedroom",
+        "west" : "Upstairs Bathoom",
+        "east" : "Master Bedroom",
     },
     "Guest Bedroom" : {
-        "east" : "Landing",
+        "west" : "Landing",
+        "item" : "steel pipe"
     },
     "Storage" : {
-        "west" : "Landing",
+        "east" : "Landing",
+        "item" : "pistol"
     },
     "Upstairs Bathoom" : {
-        "west" : "Hallway",
+        "east" : "Hallway",
     },
     "Master Bedroom" : {
-        "east" : "Hallway",
+        "west" : "Hallway",
         "up" : "Attic",
     },
     "Attic" : {
-        "down" : "Master Bedroom"
+        "down" : "Master Bedroom",
+        "item" : "demon"
     }
 }   
 
@@ -121,4 +132,35 @@ while True:
         else:
             print(f"You don't see a {move[1]}")
     
+    # Victory 1
+    if "robe" in inventory and "knife" in inventory and currentRoom == "Attic":
+        print("You disguised yourself as the demon's summoner and caught it off guard")
+        print("You killed the demon you return home mission complete")
+        break
+    
+    # Victory 2
+    if "areosol can" in inventory and "lighter" in inventory and "steel pipe" in inventory and currentRoom == "Attic":
+        print("The demon saw you and attacked you make a makeshift flamethrower to damage the demon")
+        print("With all your strength you managed to kill the demon with a steel pipe")
+        print("You return home mission complete")
+        break
+
+    # Victory 3
+    if "pistol" in inventory and currentRoom == "Attic":
+        print("You see the demon before it has a chance to react you unload every bullet into it")
+        print("As it's body lie dead you realize your mission is complete you return home")
+        break
+    
+    # Loss 1
+    if currentRoom == "Outside":
+        print("Try as you might you couldn't work up the nerve to enter the house")
+        print("Guess you were never cut out to be a devil buster")
+        print("GAME OVER")
+        break
+    
+    # Loss 2
+    if currentRoom == "Attic":
+        print("The demon saw you and attacked you weren't able to fight back with what you had")
+        print("You suffered the fate many unqualified devil busters before you")
+        print("GAME OVER")
     
